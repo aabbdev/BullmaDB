@@ -20,4 +20,9 @@ cd ../../xxhash
 make
 ## RocksDB
 cd ../rocksdb
-USE_SSE=1 make static_lib
+rm -r build
+mkdir -p build
+cd build
+cmake -DFORCE_SSE42=1 -DWITH_JEMALLOC=1 -DWITH_LZ4=1 -DWITH_SNAPPY=1 -DWITH_ZLIB=1 -DWITH_ZSTD=1 ..
+make -j8
+cd ../../../
