@@ -26,7 +26,7 @@ HARD_DURABILITY.sync = true;
 */
 int main( int argc, const char* argv[] ) {
     //std::cout << "Hello World!" <<std::endl;
-    CStorage* storage = new CStorage("chakradb_data");
+    CStorage* storage = new CStorage("bullmadb_data");
 
     delete storage;
     return 0;
