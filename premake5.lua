@@ -52,7 +52,8 @@ workspace "BullmaDB"
 			"third_party/rocksdb/include",
 			"third_party/msgpack/include",
 			"third_party/marl/include",
-			"third_party/xxhash"
+			"third_party/xxhash",
+			"third_party/cxxopts/include"
 		}
         libdirs { 
             "third_party/rocksdb/build",

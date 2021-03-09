@@ -1,9 +1,9 @@
 #include "database.h"
-#include "storage.h"
+#include "manager.h"
 
 CDatabase::CDatabase(fs::path db_path) {
 	name = db_path.filename().generic_string();
-    CStorage* storage = CStorage::getInstance();
+    CManager* storage = CManager::getInstance();
     rocksdb::Status status;
 	std::vector<rocksdb::ColumnFamilyDescriptor> column_families;
 	std::vector<rocksdb::ColumnFamilyHandle*> handles;

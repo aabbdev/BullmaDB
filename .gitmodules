@@ -15,3 +15,6 @@
 [submodule "third_party/concurrentqueue"]
 	path = third_party/concurrentqueue
 	url = https://github.com/cameron314/concurrentqueue.git
+[submodule "third_party/cxxopts"]
+	path = third_party/cxxopts
+	url = https://github.com/jarro2783/cxxopts
