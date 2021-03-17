@@ -1,12 +1,9 @@
-#include <marl/defer.h>
-#include <marl/event.h>
-#include <marl/scheduler.h>
-#include <marl/waitgroup.h>
-
 #include "queryserver.h"
+using namespace Bullma;
+using namespace Bullma::Server;
 
 QueryServer::QueryServer(){
-    counter += 1;
+
 }
 
 void QueryServer::Start(){

@@ -1,16 +1,19 @@
 #include "console.h"
-CConsole *CConsole::singleton = 0;
-CConsole::CConsole(){
+using namespace Bullma;
+using namespace Bullma::CLI;
+
+Console *Console::singleton = 0;
+Console::Console(){
     singleton = this;
 }
-CConsole::~CConsole(){
+Console::~Console(){
     singleton = nullptr;
 }
-CConsole *CConsole::getInstance()
+Console *Console::getInstance()
 {
 	return singleton;
 }
-void CConsole::run(std::atomic<bool>& run){
+void Console::run(std::atomic<bool>& run){
     std::string buffer;
 
     while (run.load())

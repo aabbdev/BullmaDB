@@ -1,15 +1,15 @@
-#ifndef __QUERYSERVER_H__
-#define __QUERYSERVER_H__
+#ifndef __Queryserver_H__
+#define __Queryserver_H__
 #include <atomic>
 
-class QueryServer
-{
-public:
-    QueryServer();
-    ~QueryServer();
-    void Start();
-    void Stop();
-private:
-    std::atomic<uint64_t> counter;
-};
-#endif // __QUERYSERVER_H__
+namespace Bullma::Server {
+    class QueryServer
+    {
+    public:
+        QueryServer();
+        ~QueryServer();
+        void Start();
+        void Stop();
+    };
+}
+#endif // __Queryserver_H__

@@ -1,9 +1,11 @@
 #include "database.h"
 #include "manager.h"
+using namespace Bullma;
+using namespace Bullma::Storage;
 
-CDatabase::CDatabase(fs::path db_path) {
+Database::Database(fs::path db_path) {
 	name = db_path.filename().generic_string();
-    CManager* storage = CManager::getInstance();
+    Manager* storage = Manager::getInstance();
     rocksdb::Status status;
 	std::vector<rocksdb::ColumnFamilyDescriptor> column_families;
 	std::vector<rocksdb::ColumnFamilyHandle*> handles;
@@ -20,11 +22,11 @@ CDatabase::CDatabase(fs::path db_path) {
 	status = rocksdb::DB::Open(storage->options, db_path, column_families, &handles, &db);
     assert(status.ok());
 	for (const auto & entry : handles){
-		tables[entry->GetName()] = new CTable(db, entry);
+		tables[entry->GetName()] = new Table(db, entry);
 		std::cout << name << ": Loading '" << entry->GetName() << "'" << std::endl;
 	}
 }
-CTable* CDatabase::table_create(std::string table_name){
+Table* Database::table_create(std::string table_name){
 	rocksdb::Status status;
 	rocksdb::ColumnFamilyHandle* handle;
 	if(tables.find(table_name) != tables.end()){
@@ -32,18 +34,18 @@ CTable* CDatabase::table_create(std::string table_name){
 	}
 	status = db->CreateColumnFamily(rocksdb::ColumnFamilyOptions(), table_name, &handle);
 	if(status.ok()){
-		return tables[handle->GetName()] = new CTable(db, handle);
+		return tables[handle->GetName()] = new Table(db, handle);
 	}
 	return nullptr;
 }
-bool CDatabase::table_drop(std::string table_name){
+bool Database::table_drop(std::string table_name){
 	//rocksdb::Status status;
-	//CTable* table = table_get(table_name);
+	//Table* table = table_get(table_name);
 	//if(!table_get(table_name)) return false;
 	//db->DropColumnFamily()
 	return false;
 }
-CDatabase::~CDatabase(){
+Database::~Database(){
 	for (auto &entry : tables) // access by reference to avoid copying
 	{
 		db->DestroyColumnFamilyHandle(entry.second->getHandle());

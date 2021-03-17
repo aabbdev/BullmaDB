@@ -1,6 +1,9 @@
 #include "manager.h"
-CManager *CManager::singleton = 0;
-CManager::CManager(std::string path)
+using namespace Bullma;
+using namespace Bullma::Storage;
+
+Manager *Manager::singleton = 0;
+Manager::Manager(std::string path)
 {
 	singleton = this;
 	MINIMAL_DURABILITY = rocksdb::WriteOptions();
@@ -28,16 +31,16 @@ CManager::CManager(std::string path)
 			auto file_path = entry.path();
 			if(fs::is_directory(file_path)){
 				// Verify if its an Rocks Directory
-				databases.push_back(new CDatabase(file_path));
+				databases.push_back(new Database(file_path));
 			}
 		}
 	}else{
 		fs::create_directory(path);
 	}
 }
-CManager::~CManager()
+Manager::~Manager()
 {
-	std::for_each(databases.begin(), databases.end(), [](CDatabase* db){
+	std::for_each(databases.begin(), databases.end(), [](Database* db){
 		delete db;
 	});
 	databases.clear();
@@ -45,7 +48,7 @@ CManager::~CManager()
 	singleton = nullptr;
 }
 
-CManager *CManager::getInstance()
+Manager *Manager::getInstance()
 {
 	return singleton;
 }
